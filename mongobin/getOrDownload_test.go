@@ -7,12 +7,12 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
+	"github.com/jdkallio/memongo/memongolog"
+	"github.com/jdkallio/memongo/mongobin"
+	"github.com/jdkallio/memongo/mongobin/mockAfero"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/tryvium-travels/memongo/memongolog"
-	"github.com/tryvium-travels/memongo/mongobin"
-	"github.com/tryvium-travels/memongo/mongobin/mockAfero"
 )
 
 func TestGetOrDownload(t *testing.T) {

@@ -17,8 +17,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/jdkallio/memongo/memongolog"
 	"github.com/spf13/afero"
-	"github.com/tryvium-travels/memongo/memongolog"
 )
 
 var Afs afero.Afero

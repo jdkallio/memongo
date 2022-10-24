@@ -4,8 +4,8 @@ import (
 	"runtime"
 	"testing"
 
+	"github.com/jdkallio/memongo/mongobin"
 	"github.com/stretchr/testify/require"
-	"github.com/tryvium-travels/memongo/mongobin"
 )
 
 const (
