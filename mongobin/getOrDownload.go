@@ -164,7 +164,7 @@ func saveFile(mongodPath string, tarReader *tar.Reader, logger *memongolog.Logge
 			}
 			_, copyErr := mongodFile.Write(content)
 			if copyErr != nil {
-				fmt.Errorf("error copying mongod binary from %s to %s: %s", mongodTmpFile.Name(), mongodPath, copyErr)
+				return fmt.Errorf("error copying mongod binary from %s to %s: %s", mongodTmpFile.Name(), mongodPath, copyErr)
 			}
 		}
 	}

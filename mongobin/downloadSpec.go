@@ -1,7 +1,7 @@
 package mongobin
 
 import (
-	"io/ioutil"
+	"os"
 	"runtime"
 	"strconv"
 	"strings"
@@ -173,7 +173,7 @@ func detectOSName(mongoVersion []int) string {
 
 	// We control etcRedhatRelease
 	//nolint:gosec
-	redhatRelease, redhatReleaseErr := ioutil.ReadFile(EtcRedhatRelease)
+	redhatRelease, redhatReleaseErr := os.ReadFile(EtcRedhatRelease)
 	if redhatReleaseErr == nil {
 		return osNameFromRedhatRelease(string(redhatRelease))
 	}
