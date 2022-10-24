@@ -78,6 +78,14 @@ func MakeDownloadSpec(version string) (*DownloadSpec, error) {
 		return nil, &UnsupportedSystemError{msg: "MongoDB 4.2 removed support for generic linux tarballs. Specify the download URL manually or use a supported distro. See: https://www.mongodb.com/blog/post/a-proposal-to-endoflife-our-generic-linux-tar-packages"}
 	}
 
+	if arch == "aarch64" {
+		if osName == "debian11" {
+			osName = "ubuntu2004"
+		} else if osName == "debian10" {
+			osName = "ubunut1804"
+		}
+	}
+
 	return &DownloadSpec{
 		Version:        version,
 		Arch:           arch,
@@ -145,6 +153,8 @@ func detectArch() (string, error) {
 	switch GoArch {
 	case "amd64":
 		return "x86_64", nil
+	case "arm64":
+		return "aarch64", nil
 	default:
 		return "", &UnsupportedSystemError{msg: "your architecture, " + GoArch + ", is not supported"}
 	}
