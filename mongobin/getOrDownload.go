@@ -90,8 +90,6 @@ func GetOrDownloadMongod(urlStr string, cachePath string, logger *memongolog.Log
 
 	tarReader := tar.NewReader(gzReader)
 
-	const maxFilesCount = 1
-	fileCount := 0
 	for {
 		nextFile, tarErr := tarReader.Next()
 		if tarErr == io.EOF {
@@ -102,14 +100,11 @@ func GetOrDownloadMongod(urlStr string, cachePath string, logger *memongolog.Log
 		}
 
 		if strings.HasSuffix(nextFile.Name, "bin/mongod") {
-			fileCount++
 			err := saveFile(path.Join(dirPath, filepath.Base(nextFile.Name)), tarReader, logger)
 			if err != nil {
 				return "", err
 			}
-			if fileCount >= maxFilesCount {
-				break
-			}
+			break
 		}
 	}
 
