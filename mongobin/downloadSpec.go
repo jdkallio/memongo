@@ -30,6 +30,8 @@ type DownloadSpec struct {
 	// Arch is always "x86_64"
 	Arch string
 
+	ParsedVersion []int
+
 	// OSName is one of:
 	// - ubuntu2204
 	// - ubuntu2004
@@ -92,6 +94,7 @@ func MakeDownloadSpec(version string) (*DownloadSpec, error) {
 		SSLBuildNeeded: ssl,
 		Platform:       platform,
 		OSName:         osName,
+		ParsedVersion:  parsedVersion,
 	}, nil
 }
 

@@ -60,6 +60,10 @@ func StartWithOptions(opts *Options) (*Server, error) {
 	// Construct the command and attach stdout/stderr handlers
 
 	engine := "ephemeralForTest"
+	if opts.UseWiredTiger {
+		engine = "wiredTiger"
+	}
+
 	args := []string{"--dbpath", dbDir, "--port", strconv.Itoa(opts.Port)}
 	if opts.ShouldUseReplica {
 		engine = "wiredTiger"

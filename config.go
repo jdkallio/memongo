@@ -8,7 +8,6 @@ import (
 	"path"
 	"runtime"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/jdkallio/memongo/memongolog"
@@ -53,6 +52,8 @@ type Options struct {
 	// If set, pass the --auth flag to mongod. This will allow tests to setup
 	// authentication.
 	Auth bool
+
+	UseWiredTiger bool
 }
 
 func (opts *Options) fillDefaults() error {
@@ -89,6 +90,10 @@ func (opts *Options) fillDefaults() error {
 			spec, err := mongobin.MakeDownloadSpec(opts.MongoVersion)
 			if err != nil {
 				return err
+			}
+
+			if len(spec.ParsedVersion) > 0 && spec.ParsedVersion[0] >= 7 {
+				opts.UseWiredTiger = true
 			}
 
 			opts.DownloadURL = spec.GetDownloadURL()
@@ -141,20 +146,6 @@ func (opts *Options) getOrDownloadBinPath() (string, error) {
 	}
 
 	return binPath, nil
-}
-
-func parseMongoMajorVersion(version string) int {
-	strParts := strings.Split(version, ".")
-	if len(strParts) == 0 {
-		return 0
-	}
-
-	maj, err := strconv.Atoi(strParts[0])
-	if err != nil {
-		return 0
-	}
-
-	return maj
 }
 
 func getFreePort() (int, error) {
